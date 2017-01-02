@@ -54,18 +54,13 @@ class Pin(models.Model):
             self.save()
         return self
 
-    def save(self, *args, **kwargs):
-        if not self.latitude or not self.longitude:
-            # TODO: Need to add state field
-            # TODO: Need to consolidate address number and address street fields
-            # TODO: Need to remove defaults from latitude and longitude
-            geolocator = Nominatim()
-            location = geolocator.geocode('{}, {} {}'.format(
-                self.address_street, self.address_city, self.address_state
-            ))
-            self.latitude = location.latitude
-            self.longitude = location.longitude
-        super(Pin, self).save(*args, **kwargs)
+    def add_geocoordinates(self):
+        geolocator = Nominatim()
+        location = geolocator.geocode('{}, {} {}'.format(
+            self.address_street, self.address_city, self.address_state
+        ))
+        self.latitude = location.latitude
+        self.longitude = location.longitude
 
     def __str__(self):
         return '{} {}, {}'.format(self.address_number, self.address_street, self.address_postal_code)
@@ -99,6 +94,5 @@ class Item(models.Model):
     def __str__(self):
         return '{} - <{}>'.format(self.name, self.category)
 
-# TODO: migrate and write tests for models - basically testing update_status
 # TODO: start thinking how are we going to create an end point - (use btool as an example)
 # TODO: At some point we have to thinnk about how are we are going to call update_status (via celery or cron job). Note that we should exclude status=cancel when calling update_status
