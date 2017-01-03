@@ -7,14 +7,14 @@ export default (store) => ({
       './containers/pinContainer',
       './modules/pin'
     ], (require) => {
-      const Pin = require('./containers/pinContainer').default
-      const pinReducer = require('./modules/pin').default
+      const Pin = require('./containers/pinContainer').default;
+      const pinReducer = require('./modules/pin').default;
 
       injectReducer(store, {
         key: 'pin',
         reducer: pinReducer
-      })
-      next(null, Pin)
-    })
+      });
+      next(null, Pin);
+    });
   }
-})
+});
