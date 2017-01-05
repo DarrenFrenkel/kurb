@@ -4,5 +4,9 @@
     INITIAL_STATE.pins = {% if pins %}{{ pins|safe }}{% else %}{}{% endif %};
 </script>
 
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKRJ5NZysXE4-GsGFhaZ1hSCDQG0KfqSw&callback=initMap">
+</script>
+
 <div id="root" style="height: 100%"></div>
 {% render_bundle 'app' %}

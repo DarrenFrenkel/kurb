@@ -1,30 +1,39 @@
 /* @flow */
 import React from 'react';
 
-export const Pin = (props) => {
+import {GoogleMapLoader, GoogleMap, Marker} from 'react-google-maps';
+
+export default function SimpleMap (props) {
   return (
-    <div>
-      <div>
-        <h3>
-          List of Pins
-        </h3>
-        <ul>
-          {props.pin.pins.map(pin =>
-            <li key={pin.pk}>
-              {pin.address_street}
-            </li>
-          )}
-        </ul>
-      </div>
-    </div>
-)
+    <section style={{ height: '100%' }}>
+      <GoogleMapLoader
+        containerElement={
+          <div
+            {...props.containerElementProps}
+            style={{
+              height: '80%',
+            }}
+          />
+        }
+        googleMapElement={
+          <GoogleMap
+            ref={(map) => console.log(map)}
+            defaultZoom={10}
+            defaultCenter={{ lat: -37.810156, lng: 144.958753 }}
+          >
+            {props.pin.pins.map((marker, index) => {
+              const latitude = marker.latitude
+              const longitude = marker.longitude
+              return (
+                <Marker
+                  position={{ lat: latitude, lng: longitude }}
+                />
+              );
+            })}
+          </GoogleMap>
+        }
+      />
+    </section>
+  );
 }
 
-Pin.propTypes = {
-  pin: React.PropTypes.object,
-  activePin: React.PropTypes.object,
-  fetchPins: React.PropTypes.func.isRequired,
-  showPinDetail: React.PropTypes.func.isRequired
-}
-
-export default Pin;
