@@ -1,0 +1,16 @@
+state: {
+  pin: {
+    # this value is originally null but could be updated to have a pk value
+    active: null,
+    # This is essentially needed for the loader icon but could be implied in the promise flow
+    # So might not need this boolean at all
+    fetching: false,
+    pins: [
+      { id: 0, value: "..." },
+      { id: 1, value: "..." },
+      { id: 2, value: "..." }
+    ]
+  },
+  # These are additional sub-states
+  (...)
+}

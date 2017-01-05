@@ -18,8 +18,10 @@ from django.contrib import admin
 
 
 # Create a router and register our viewsets with it.
+from apps.pindrop.views import PinView
 
 urlpatterns = [
+    url(r'^$', PinView.as_view()),
     url(r'^admin/', admin.site.urls),
     url(r'^api/v1/', include('apps.pindrop.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))

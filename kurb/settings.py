@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'custom_user',
     'rest_framework',
+    'webpack_loader',
     'apps.pindrop'
 ]
 
@@ -103,6 +104,20 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': '',
+        'STATS_FILE': os.path.join(BASE_DIR, 'static', 'src', 'dist', 'webpack-stats.json'),
+    }
+}
+
+
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(BASE_DIR, 'static', 'src', 'dist'),
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/

@@ -19,6 +19,7 @@ class PinSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pin
         fields = (
+            'pk',
             'address_street',
             'address_number',
             'address_city',

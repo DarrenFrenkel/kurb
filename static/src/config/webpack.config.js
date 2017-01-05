@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const cssnano = require('cssnano')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const BundleTracker = require('webpack-bundle-tracker')
 const project = require('./project.config')
 const debug = require('debug')('app:config:webpack')
 
@@ -29,8 +30,7 @@ const APP_ENTRY = project.paths.client('main.js')
 webpackConfig.entry = {
   app : __DEV__
     ? [APP_ENTRY].concat(`webpack-hot-middleware/client?path=${project.compiler_public_path}__webpack_hmr`)
-    : [APP_ENTRY],
-  vendor : project.compiler_vendors
+    : [APP_ENTRY]
 }
 
 // ------------------------------------
@@ -107,10 +107,12 @@ if (__DEV__) {
 // Don't split bundles during testing, since we only want import one bundle
 if (!__TEST__) {
   webpackConfig.plugins.push(
-    new webpack.optimize.CommonsChunkPlugin({
-      names : ['vendor']
+    new BundleTracker({
+      path: project.paths.dist(),
+      filename: 'webpack-stats.json',
+      includePath: false
     })
-  )
+  );
 }
 
 // ------------------------------------

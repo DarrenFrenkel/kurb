@@ -18,8 +18,8 @@ export const createRoutes = (store) => {
         ]);
       });
     }
-  }
+  };
   return routes;
-}
+};
 
 export default createRoutes;

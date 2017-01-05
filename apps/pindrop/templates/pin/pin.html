@@ -1,0 +1,8 @@
+{% load render_bundle from webpack_loader %}
+<script type="text/javascript">
+    var INITIAL_STATE = {}
+    INITIAL_STATE.pins = {% if pins %}{{ pins|safe }}{% else %}{}{% endif %};
+</script>
+
+<div id="root" style="height: 100%"></div>
+{% render_bundle 'app' %}
