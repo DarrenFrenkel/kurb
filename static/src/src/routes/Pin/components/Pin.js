@@ -1,32 +1,44 @@
-/* @flow */
 import React from 'react';
+import classNames from 'classnames';
+import { GoogleMapLoader, GoogleMap, Marker } from 'react-google-maps';
+import Panel from './Panel'
 
-import {GoogleMapLoader, GoogleMap, Marker} from 'react-google-maps';
+require('./Pin.scss')
 
 export default function SimpleMap (props) {
   return (
-    <section style={{ height: '100%' }}>
+    <section className='page-container'>
+      {
+        !!props.pin.activePin &&
+        <Panel props={props.activePin} />
+      }
       <GoogleMapLoader
         containerElement={
           <div
             {...props.containerElementProps}
-            style={{
-              height: '80%',
-            }}
+            className={classNames(
+              'map-container',
+              { 'map-container__with-panel': !!props.pin.activePin },
+              { 'map-container__without-panel': !props.pin.activePin }
+            )}
           />
         }
         googleMapElement={
           <GoogleMap
-            ref={(map) => console.log(map)}
             defaultZoom={10}
             defaultCenter={{ lat: -37.810156, lng: 144.958753 }}
           >
             {props.pin.pins.map((marker, index) => {
-              const latitude = marker.latitude
-              const longitude = marker.longitude
+              const latitude = marker.latitude;
+              const longitude = marker.longitude;
               return (
-                <Marker
+                <Marker key={index}
                   position={{ lat: latitude, lng: longitude }}
+                  onClick={
+                    function () {
+                      props.showPinDetail(marker.id);
+                    }
+                  }
                 />
               );
             })}
@@ -37,3 +49,8 @@ export default function SimpleMap (props) {
   );
 }
 
+SimpleMap.propTypes = {
+  containerElementProps: React.PropTypes.object,
+  pin: React.PropTypes.object,
+  activePin: React.PropTypes.bool
+};

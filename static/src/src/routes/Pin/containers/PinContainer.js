@@ -11,7 +11,7 @@ const mapActionCreators = {
 
 const mapStateToProps = (state) => {
   return {
-    activePin: state.pin.pins.find(data => data.id === state.pin.active),
+    activePin: state.pin.pins.find(data => data.id === state.pin.activePin),
     pin: state.pin
   };
 };

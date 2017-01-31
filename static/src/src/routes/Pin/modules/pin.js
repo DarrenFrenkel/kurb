@@ -65,7 +65,7 @@ const PIN_ACTION_HANDLERS = {
     return ({ ...state, pins: action.payload.pins, fetching: false });
   },
   [SHOW_PIN_DETAIL]: (state, action) => {
-    return ({ ...state, active: action.payload.pinId });
+    return ({ ...state, activePin: action.payload.pinId });
   }
 };
 
@@ -77,7 +77,7 @@ const pins = window && window.INITIAL_STATE && window.INITIAL_STATE.pins
   ? window.INITIAL_STATE.pins
   : []
 
-const initialState = { fetching: false, active: null, pins: pins };
+const initialState = { fetching: false, activePin: null, pins: pins };
 
 export default function pinReducer (state = initialState, action) {
   const handler = PIN_ACTION_HANDLERS[action.type];
