@@ -29,5 +29,13 @@ class PinDropTestCase(TestCase):
         pindrop.update_status()
         self.assertEqual(pindrop.status, pindrop.STATE.REMOVED)
 
+class Add_GeocoordinatesTestCast(TestCase):
+    def test_returning_latitude_and_longditude(self):
+        pindrop0 = PinFactory(address_street='19 Dunbar Ave', address_city='Melbourne', address_postal_code=3161)
+        pindrop0.add_geocoordinates()
+        self.assertEqual(pindrop0.longitude, 145.019581)
+        
+
+
 
 
