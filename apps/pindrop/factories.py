@@ -1,4 +1,4 @@
-imporimport random
+import random
 
 import factory
 from decimal import Decimal
