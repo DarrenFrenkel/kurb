@@ -34,7 +34,6 @@ class PinFactory(factory.Factory):
     pk = random.randint(1, 10000000)
 
 
-
 class ItemFactory(factory.Factory):
 
     class Meta:
