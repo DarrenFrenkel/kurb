@@ -42,4 +42,3 @@ class PinView(ListView):
         kwargs['pins'] = json.dumps(pins)
         return super(PinView, self).get_context_data(**kwargs)
 
-

@@ -25,8 +25,7 @@ class PinFactory(factory.Factory):
         model = models.Pin
 
     user = factory.SubFactory(UserFactory)
-    address_street = factory.Sequence(lambda n: 'test street%d' % n)
-    address_number = random.randint(1, 100)
+    address_street = factory.Sequence(lambda n: '{} test street{}'.format(n, n))
     address_city = 'Melbourne'
     address_postal_code = random.randint(1000, 9999)
     latitude = Decimal(random.random())

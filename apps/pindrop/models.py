@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
-from geopy.geocoders import Nominatim
+
+from geopy.geocoders import GoogleV3
 
 import datetime
 
@@ -29,7 +30,6 @@ class Pin(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='pins')
     address_street = models.CharField(max_length=255)
-    address_number = models.CharField(max_length=255)
     address_city = models.CharField(max_length=255)
     address_postal_code = models.CharField(max_length=255)
     latitude = models.FloatField(default=0.0)
@@ -55,15 +55,16 @@ class Pin(models.Model):
         return self
 
     def add_geocoordinates(self):
-        geolocator = Nominatim()
-        location = geolocator.geocode('{}, {} {}'.format(
-            self.address_street, self.address_city, self.address_state
+        geolocator = GoogleV3(api_key='AIzaSyCNebNRgu_f14NJU6HflWPnfrXgOp259Ls')
+
+        location = geolocator.geocode('{} {} {}'.format(
+            self.address_street, self.address_city, self.address_postal_code
         ))
         self.latitude = location.latitude
         self.longitude = location.longitude
-
+        
     def __str__(self):
-        return '{} {}, {}'.format(self.address_number, self.address_street, self.address_postal_code)
+        return '{}, {}, {}'.format(self.address_street, self.address_city, self.address_postal_code)
 
 
 class Item(models.Model):
