@@ -13,6 +13,33 @@ from django.utils import timezone
 from apps.pindrop.utils import ChoicesList
 
 
+class Address(models.Model):
+    """
+    A model that represents the users addresses
+    """
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='addresses',
+                             null=True, blank=True)
+    street = models.CharField(max_length=255)
+    state = models.CharField(max_length=255)
+    postal_code = models.CharField(max_length=255)
+    latitude = models.FloatField(default=0.0)
+    longitude = models.FloatField(default=0.0)
+
+    def add_geocoordinates(self):
+        geolocator = GoogleV3(api_key=os.environ['google_key'])
+
+        location = geolocator.geocode('{} {} {}'.format(
+            self.street, self.state, self.postal_code
+        ))
+        self.latitude = location.latitude
+        self.longitude = location.longitude
+
+    def __str__(self):
+        return '{}, {}, {}'.format(self.street, self.state,
+                                   self.postal_code)
+
+
 class Pin(models.Model):
     """
     A model that represents the location where you place stuff on the nature strip
@@ -29,13 +56,7 @@ class Pin(models.Model):
         # Item was picked up
         ('picked up', 'Picked Up'),
     )
-
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='pins')
-    address_street = models.CharField(max_length=255)
-    address_city = models.CharField(max_length=255)
-    address_postal_code = models.CharField(max_length=255)
-    latitude = models.FloatField(default=0.0)
-    longitude = models.FloatField(default=0.0)
+    address = models.ForeignKey(Address, related_name='pins', blank=True, null=True)
     created = models.DateTimeField("created time", auto_now_add=True)
     updated = models.DateTimeField("updated time", auto_now=True)
     status = models.CharField(max_length=32, choices=STATE, default=STATE.NEW)
@@ -56,16 +77,8 @@ class Pin(models.Model):
             self.save()
         return self
 
-    def add_geocoordinates(self):
-        geolocator = GoogleV3(api_key=os.environ['google_key'])
-        location = geolocator.geocode('{} {} {}'.format(
-            self.address_street, self.address_city, self.address_postal_code
-        ))
-        self.latitude = location.latitude
-        self.longitude = location.longitude
-        
     def __str__(self):
-        return '{}, {}, {}'.format(self.address_street, self.address_city, self.address_postal_code)
+        return '{}, {}'.format(self.created, self.status)
 
 
 class Item(models.Model):
