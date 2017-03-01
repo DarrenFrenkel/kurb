@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 
+import os
+
 from geopy.geocoders import GoogleV3
 
 import datetime
@@ -55,8 +57,7 @@ class Pin(models.Model):
         return self
 
     def add_geocoordinates(self):
-        geolocator = GoogleV3(api_key='AIzaSyCNebNRgu_f14NJU6HflWPnfrXgOp259Ls')
-
+        geolocator = GoogleV3(api_key=os.environ['google_key'])
         location = geolocator.geocode('{} {} {}'.format(
             self.address_street, self.address_city, self.address_postal_code
         ))

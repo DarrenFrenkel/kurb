@@ -1,4 +1,5 @@
 import json
+import os
 
 from django.forms.models import model_to_dict
 from django.shortcuts import render
@@ -40,5 +41,6 @@ class PinView(ListView):
             pin_dict['items'] = items
             pins.append(pin_dict)
         kwargs['pins'] = json.dumps(pins)
+        kwargs['google_key'] = os.environ['google_key']
         return super(PinView, self).get_context_data(**kwargs)
 
