@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.pindrop.models import Pin, Item
+from apps.pindrop.models import Pin, Item, Address
 
 
 class ItemSerializer(serializers.ModelSerializer):
@@ -20,9 +20,20 @@ class PinSerializer(serializers.ModelSerializer):
         model = Pin
         fields = (
             'pk',
-            'address_street',
-            'address_city',
-            'address_postal_code',
             'status',
             'items'
         )
+
+
+class AddressSerializer(serializers.ModelSerializer):
+    pins = PinSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Address
+        fields = (
+            'pk'
+            'street',
+            'state',
+            'postal_code'
+            'latitude'
+            'longitude')
