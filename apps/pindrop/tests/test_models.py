@@ -39,9 +39,9 @@ class PinDropTestCase(TestCase):
 class Add_GeocoordinatesTestCast(TestCase):
     def test_returning_latitude_and_longditude(self):
 
-        address = collections.namedtuple('address', ['address_street',
-                                                     'address_state',
-                                                     'address_postal_code',
+        address = collections.namedtuple('address', ['street',
+                                                     'state',
+                                                     'postal_code',
                                                      'googleLat',
                                                      'googleLon'])
 
@@ -53,9 +53,9 @@ class Add_GeocoordinatesTestCast(TestCase):
         # Set decimal accuracy of the GPS coordinates
         accuracy = 2
         for i in addressBook:
-            pindrop = AddressFactory(address_street=i.address_street,
-                                     address_state=i.address_state,
-                                     address_postal_code=i.address_postal_code)
+            pindrop = AddressFactory(street=i.street,
+                                     state=i.state,
+                                     postal_code=i.postal_code)
             pindrop.add_geocoordinates()
             rndPinLatLon = (round(pindrop.latitude, accuracy), round(pindrop.longitude, accuracy))
             rndGoogleLatLon = (round(i.googleLat, accuracy), round(i.googleLon, accuracy))
