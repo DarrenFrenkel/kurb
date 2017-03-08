@@ -42,21 +42,21 @@ class AddGeocoordinatesTestCast(TestCase):
 
         address = collections.namedtuple(
             'address',
-            ['address_street', 'address_city', 'address_postal_code', 'googleLat', 'googleLon']
+            ['street', 'state', 'postal_code', 'googleLat', 'googleLon']
         )
         address_book = [
-            address('2 Dunbar Ave', 'Melbourne', 3161, -37.878505, 145.019607),
-            address('19 Dunbar Ave', 'Melbourne', 3161, -37.878945, 145.021097),
-            address('15 St kilda Rd', 'Melbourne', 3004, -37.818164, 144.967869)
+            address('2 Dunbar Ave', 'VIC', 3161, -37.878505, 145.019607),
+            address('19 Dunbar Ave', 'VIC', 3161, -37.878945, 145.021097),
+            address('15 St kilda Rd', 'VIC', 3004, -37.818164, 144.967869)
         ]
 
         # Set decimal accuracy of the GPS coordinates
         accuracy = 2 
         for i in address_book:
-            pindrop = PinFactory(
-                address_street=i.address_street,
-                address_city=i.address_city,
-                address_postal_code=i.address_postal_code
+            pindrop = AddressFactory(
+                street=i.street,
+                state=i.state,
+                postal_code=i.postal_code
             )
             pindrop.add_geocoordinates()
             round_pin = (round(pindrop.latitude, accuracy), round(pindrop.longitude, accuracy))
