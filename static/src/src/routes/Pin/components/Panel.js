@@ -7,8 +7,8 @@ export default function Panel (props) {
   } = props
   return (
     <aside className='side-panel'>
-      <p>{activePin.street}</p>
-      <p>{activePin.state}, {activePin.postal_code}</p>
+      <p>{activePin.address.street}</p>
+      <p>{activePin.address.state}, {activePin.address.postal_code}</p>
       {activePin.items.map((item, index) => {
         return (
           <li key={index}>{item.name}</li>
