@@ -37,15 +37,14 @@ class PinView(ListView):
         for pin in self.model.objects.all():
             pin_dict = model_to_dict(pin)
             items = [{'name': item.name, 'category': item.category, 'condition': item.condition}
-                     for item in Item.objects.filter(pin=pin)]
+                     for item in pin.items.all()]
             pin_dict['items'] = items
-            address_on_pin = Address.objects.get(pk=pin.address_id)
             address = {
-                'street': address_on_pin.street,
-                'state': address_on_pin.state,
-                'postal_code': address_on_pin.postal_code,
-                'latitude': address_on_pin.latitude,
-                'longitude': address_on_pin.longitude
+                'street': pin.address.street,
+                'state': pin.address.state,
+                'postal_code': pin.address.postal_code,
+                'latitude': pin.address.latitude,
+                'longitude': pin.address.longitude
             }
             pin_dict['address'] = address
             pins.append(pin_dict)
