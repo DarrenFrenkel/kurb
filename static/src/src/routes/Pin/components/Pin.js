@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { GoogleMapLoader, GoogleMap, Marker } from 'react-google-maps';
-import Panel from './Panel'
+import Panel from './Panel';
 
 require('./Pin.scss')
 
@@ -10,7 +10,10 @@ export default function SimpleMap (props) {
     <section className='page-container'>
       {
         !!props.pin.activePin &&
-        <Panel props={props.activePin} />
+        <Panel
+          activePin={props.activePin}
+          closePin={props.closePin}
+        />
       }
       <GoogleMapLoader
         containerElement={
@@ -52,5 +55,6 @@ export default function SimpleMap (props) {
 SimpleMap.propTypes = {
   containerElementProps: React.PropTypes.object,
   pin: React.PropTypes.object,
-  activePin: React.PropTypes.bool
+  activePin: React.PropTypes.bool,
+  closePin: React.PropTypes.func
 };

@@ -1,12 +1,13 @@
 /* @flow */
 import { connect } from 'react-redux';
-import { fetchPins, showPinDetail } from '../modules/pin';
+import { fetchPins, showPinDetail, closePin } from '../modules/pin';
 
 import Pin from '../components/Pin';
 
 const mapActionCreators = {
   fetchPins,
-  showPinDetail
+  showPinDetail,
+  closePin
 }
 
 const mapStateToProps = (state) => {

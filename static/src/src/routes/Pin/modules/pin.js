@@ -6,6 +6,7 @@
 export const REQUEST_PINS = 'REQUEST_PINS';
 export const RECIEVE_PINS = 'RECIEVE_PINS';
 export const SHOW_PIN_DETAIL = 'SHOW_PIN_DETAIL';
+export const CLOSE_PIN = 'CLOSE_PIN';
 
 // ------------------------------------
 // Actions
@@ -35,6 +36,12 @@ export function showPinDetail (value) {
   };
 }
 
+export function closePin (value) {
+  return {
+    type: CLOSE_PIN
+  };
+}
+
 export const fetchPins = () => {
   return (dispatch) => {
     // dispatch(requestPins());
@@ -50,7 +57,8 @@ export const actions = {
   requestPins,
   recievePins,
   fetchPins,
-  showPinDetail
+  showPinDetail,
+  closePin
 };
 
 // ------------------------------------
@@ -66,6 +74,9 @@ const PIN_ACTION_HANDLERS = {
   },
   [SHOW_PIN_DETAIL]: (state, action) => {
     return ({ ...state, activePin: action.payload.pinId });
+  },
+  [CLOSE_PIN]: (state) => {
+    return ({ ...state, activePin: null });
   }
 };
 
