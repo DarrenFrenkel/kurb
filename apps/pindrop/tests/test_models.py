@@ -36,6 +36,7 @@ class PinDropTestCase(TestCase):
         pindrop.update_status()
         self.assertEqual(pindrop.status, pindrop.STATE.REMOVED)
 
+
 class AddGeocoordinatesTestCast(TestCase):
     def test_returning_latitude_and_longditude(self):
 

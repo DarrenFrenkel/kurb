@@ -1,4 +1,4 @@
- import React from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import { GoogleMapLoader, GoogleMap, Marker } from 'react-google-maps';
 import Panel from './Panel';
