@@ -10,6 +10,7 @@ export default function Panel (props) {
       <p>{activePin.address.street}</p>
       <p>{activePin.address.state}, {activePin.address.postal_code}</p>
       {activePin.items.map((item, index) => {
+
         return (
           <li key={index}>{item.name}</li>
         );

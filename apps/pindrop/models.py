@@ -28,7 +28,6 @@ class Address(models.Model):
 
     def add_geocoordinates(self):
         geolocator = GoogleV3(api_key=os.environ['google_key'])
-
         location = geolocator.geocode('{} {} {}'.format(
             self.street, self.state, self.postal_code
         ))
