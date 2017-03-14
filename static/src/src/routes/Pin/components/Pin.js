@@ -32,8 +32,8 @@ export default function SimpleMap (props) {
             defaultCenter={{ lat: -37.810156, lng: 144.958753 }}
           >
             {props.pin.pins.map((marker, index) => {
-              const latitude = marker.latitude;
-              const longitude = marker.longitude;
+              const latitude = marker.address.latitude;
+              const longitude = marker.address.longitude;
               return (
                 <Marker key={index}
                   position={{ lat: latitude, lng: longitude }}

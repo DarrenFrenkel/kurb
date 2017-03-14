@@ -12,8 +12,21 @@ from apps.pindrop import models
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = get_user_model()
+
     email = factory.Sequence(lambda n: '%s@testuser.com.au' % n)
     password = factory.PostGenerationMethodCall('set_password', 'defaultpassword')
+
+
+class AddressFactory(factory.Factory):
+    class Meta:
+        model = models.Address
+
+    user = factory.SubFactory(UserFactory)
+    street = factory.Sequence(lambda n: '{} test street{}'.format(n, n))
+    state = 'Victoria'
+    postal_code = random.randint(1000, 9999)
+    latitude = Decimal(random.random())
+    longitude = Decimal(random.random())
 
 
 # Ideally we should be using `DjangoModelFactory`
@@ -23,13 +36,7 @@ class PinFactory(factory.Factory):
 
     class Meta:
         model = models.Pin
-
-    user = factory.SubFactory(UserFactory)
-    address_street = factory.Sequence(lambda n: '{} test street{}'.format(n, n))
-    address_city = 'Melbourne'
-    address_postal_code = random.randint(1000, 9999)
-    latitude = Decimal(random.random())
-    longitude = Decimal(random.random())
+    address = factory.SubFactory(AddressFactory)
     created = timezone.now()
     pk = random.randint(1, 10000000)
 
