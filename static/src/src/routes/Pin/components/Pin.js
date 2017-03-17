@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { GoogleMapLoader, GoogleMap, Marker } from 'react-google-maps';
 import Panel from './Panel';
 
-require('./Pin.scss')
+require('./Pin.scss');
 
 export default function SimpleMap (props) {
   return (
@@ -21,8 +21,6 @@ export default function SimpleMap (props) {
             {...props.containerElementProps}
             className={classNames(
               'map-container',
-              { 'map-container__with-panel': !!props.pin.activePin },
-              { 'map-container__without-panel': !props.pin.activePin }
             )}
           />
         }
