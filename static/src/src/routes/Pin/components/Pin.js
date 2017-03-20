@@ -9,12 +9,16 @@ export default function SimpleMap (props) {
   return (
     <section className='page-container'>
       {
-        !!props.pin.activePin &&
+        props.activePanel &&
         <Panel
           activePin={props.activePin}
           closePin={props.closePin}
         />
       }
+      <button
+        className='new-pin--button'
+        onClick={props.addPin}
+      >+</button>
       <GoogleMapLoader
         containerElement={
           <div
@@ -53,6 +57,8 @@ export default function SimpleMap (props) {
 SimpleMap.propTypes = {
   containerElementProps: React.PropTypes.object,
   pin: React.PropTypes.object,
-  activePin: React.PropTypes.bool,
-  closePin: React.PropTypes.func
+  activePin: React.PropTypes.object,
+  closePin: React.PropTypes.func,
+  addPin: React.PropTypes.func,
+  activePanel: React.PropTypes.bool
 };

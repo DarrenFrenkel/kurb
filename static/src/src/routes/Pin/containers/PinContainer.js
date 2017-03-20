@@ -1,19 +1,21 @@
 /* @flow */
 import { connect } from 'react-redux';
-import { fetchPins, showPinDetail, closePin } from '../modules/pin';
+import { fetchPins, showPinDetail, closePin, addPin } from '../modules/pin';
 
 import Pin from '../components/Pin';
 
 const mapActionCreators = {
   fetchPins,
   showPinDetail,
-  closePin
-}
+  closePin,
+  addPin
+};
 
 const mapStateToProps = (state) => {
   return {
-    activePin: state.pin.pins.find(data => data.id === state.pin.activePin),
-    pin: state.pin
+    activePin: state.pin.activePin,
+    pin: state.pin,
+    activePanel: state.pin.activePanel
   };
 };
 
