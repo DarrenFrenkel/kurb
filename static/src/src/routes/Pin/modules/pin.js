@@ -7,6 +7,7 @@ export const REQUEST_PINS = 'REQUEST_PINS';
 export const RECIEVE_PINS = 'RECIEVE_PINS';
 export const SHOW_PIN_DETAIL = 'SHOW_PIN_DETAIL';
 export const CLOSE_PIN = 'CLOSE_PIN';
+export const ADD_PIN = 'ADD_PIN';
 
 // ------------------------------------
 // Actions
@@ -42,6 +43,12 @@ export function closePin (value) {
   };
 }
 
+export function addPin (value) {
+  return {
+    type: ADD_PIN
+  };
+}
+
 export const fetchPins = () => {
   return (dispatch) => {
     // dispatch(requestPins());
@@ -58,7 +65,8 @@ export const actions = {
   recievePins,
   fetchPins,
   showPinDetail,
-  closePin
+  closePin,
+  addPin
 };
 
 // ------------------------------------
@@ -73,10 +81,14 @@ const PIN_ACTION_HANDLERS = {
     return ({ ...state, pins: action.payload.pins, fetching: false });
   },
   [SHOW_PIN_DETAIL]: (state, action) => {
-    return ({ ...state, activePin: action.payload.pinId });
+    const activePin = state.pins.find(pin => pin.id === action.payload.pinId)
+    return ({ ...state, activePin: activePin, activePanel: true });
   },
   [CLOSE_PIN]: (state) => {
-    return ({ ...state, activePin: null });
+    return ({ ...state, activePin: null, activePanel: false });
+  },
+  [ADD_PIN]: (state) => {
+    return ({ ...state, activePin: null, activePanel: true });
   }
 };
 
@@ -86,9 +98,9 @@ const PIN_ACTION_HANDLERS = {
 
 const pins = window && window.INITIAL_STATE && window.INITIAL_STATE.pins
   ? window.INITIAL_STATE.pins
-  : []
+  : [];
 
-const initialState = { fetching: false, activePin: null, pins: pins };
+const initialState = { fetching: false, activePin: null, pins: pins, activePanel: false };
 
 export default function pinReducer (state = initialState, action) {
   const handler = PIN_ACTION_HANDLERS[action.type];

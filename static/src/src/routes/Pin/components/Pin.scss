@@ -2,15 +2,52 @@
   height: 100%
 }
 
-.map-container__with-panel {
-  left:300px;
+.side-panel {
+  background-color: #C5E3BF;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 35%;
+  z-index: 1;
+  display: flex
 }
 
-.side-panel {
-  background-color: #979797;
-  position:absolute;
-  top:0;
-  left:0;
-  bottom:0;
-  width:300px;
+.side-panel--content {
+  margin: 0 auto;
+  width: 80%;
+}
+
+.side-panel--items {
+  margin-bottom: 2rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.side-panel--button {
+  background: white;
+  padding: 6px 10px;
+  border-radius: 30%;
+  color: #c5e3bf;
+  border: none;
+}
+
+.new-pin--button:hover, .side-panel--button:hover {
+ cursor: pointer;
+}
+
+.new-pin--button {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  margin: 1rem 2rem;
+  border-radius: 50%;
+  background: white;
+  padding: 6px 12px;
+  color: #c5e3bf;
+  font-size: 24px;
+  border: solid 1px;
 }
